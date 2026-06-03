@@ -359,6 +359,15 @@ window.SITE_DATA = {
   ],
   "speaking": [
     {
+      "date": "2026-05-08",
+      "rawtitle": "2026.05.08_学術バーQ「AI for/against US 「人間にしかできないこと」のゆくえ」",
+      "title": "学術バーQ「AI for/against US 「人間にしかできないこと」のゆくえ」",
+      "links": [
+        "https://x.com/Q_Gakujutsu/status/2047646746558537872?s=20"
+      ],
+      "subs": []
+    },
+    {
       "date": "2023-04-26",
       "rawtitle": "2023.04.26_オルタナ サステナブル・ビジネス・リーグセミナー「チャットGPTとESG、生成AIに潜むリスク」",
       "title": "オルタナ サステナブル・ビジネス・リーグセミナー「チャットGPTとESG、生成AIに潜むリスク」",
