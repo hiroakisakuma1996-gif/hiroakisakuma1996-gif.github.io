@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>佐久間 弘明 ｜ Hiroaki Sakuma</title>
+<meta name="description" content="佐久間弘明（Hiroaki Sakuma）— AIをはじめとする情報技術が私たちにもたらす変化と「リスク」をめぐる問題に関心を持つ。AIガバナンス協会理事・事務局長。" />
+<meta property="og:title" content="佐久間 弘明 ｜ Hiroaki Sakuma" />
+<meta property="og:description" content="AIガバナンスと「リスク」をめぐる研究・実務・政策提言。" />
+<meta property="og:type" content="profile" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐁</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#news" data-tab="news">
+      <span class="brand-names">
+        <span class="brand-ja">佐久間 弘明</span>
+        <span class="brand-en">Hiroaki Sakuma</span>
+      </span>
+    </a>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <button class="tab" data-tab="news">News</button>
+      <button class="tab" data-tab="profile">Profile</button>
+      <button class="tab" data-tab="publications">Publications</button>
+      <button class="tab" data-tab="speaking">Speaking</button>
+      <button class="tab" data-tab="links">Links</button>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- NEWS -->
+    <section class="panel" id="news" data-panel="news"></section>
+    <!-- PROFILE -->
+    <section class="panel" id="profile" data-panel="profile"></section>
+    <!-- PUBLICATIONS -->
+    <section class="panel" id="publications" data-panel="publications"></section>
+    <!-- SPEAKING -->
+    <section class="panel" id="speaking" data-panel="speaking"></section>
+    <!-- LINKS -->
+    <section class="panel" id="links" data-panel="links"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Hiroaki Sakuma</span>
+      <span class="footer-note">Updated via a single data file — see <code>data.js</code></span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
