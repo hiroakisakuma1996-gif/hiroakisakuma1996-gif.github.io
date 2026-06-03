@@ -133,7 +133,7 @@ main { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; pa
 /* ---------- Profile ---------- */
 .profile-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
 .bio p { color: var(--fg-dim); margin: 0 0 1.1rem; }
-.bio .intro-big { font-family: var(--serif); font-size: 1.15rem; color: var(--fg); }
+.bio .intro-text { font-family: var(--sans); font-size: 1.06rem; color: var(--fg); line-height: 1.9; }
 .roles { list-style: none; padding: 0; margin: 0; }
 .roles > li { padding: .75rem 0; border-top: 1px solid var(--line-soft); font-size: .92rem; color: var(--fg); }
 .roles > li:first-child { border-top: 0; }

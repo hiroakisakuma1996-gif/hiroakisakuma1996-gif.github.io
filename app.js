@@ -72,8 +72,8 @@
     const grid = el("div", "profile-grid");
 
     const bio = el("div", "bio");
-    bio.appendChild(el("p", "intro-big", esc(D.intro)));
-    bio.appendChild(el("p", null, esc(D.tagline)));
+    (D.profile_bio && D.profile_bio.length ? D.profile_bio : [D.intro, D.tagline])
+      .forEach((p) => bio.appendChild(el("p", "intro-text", esc(p))));
 
     // career detail (JA)
     if (D.career_ja && D.career_ja.length) {
