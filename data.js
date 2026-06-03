@@ -60,6 +60,33 @@ window.SITE_DATA = {
   ],
   "publications": [
     {
+      "date": "2026-05-29",
+      "rawtitle": "2026.05.29_日経ビジネス「AI面接官で“二度手間地獄”　業務再設計で年800時間の削減も」（コメント掲載）",
+      "title": "日経ビジネス「AI面接官で“二度手間地獄”　業務再設計で年800時間の削減も」（コメント掲載）",
+      "links": [
+        "https://business.nikkei.com/atcl/gen/19/00636/052700091/"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-05-14",
+      "rawtitle": "2026.05.14_共著論文プレプリント\"Humanity-in-the-Circle: A Position Paper\"",
+      "title": "共著論文プレプリント\"Humanity-in-the-Circle: A Position Paper\"",
+      "links": [
+        "https://zenodo.org/records/20176233"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-03-12",
+      "rawtitle": "2026.03.12_シェルパ・アンド・カンパニー「シェルパ、多様なステークホルダーの声を反映し、マテリアリティ（重要課題）を特定」（マテリアリティ策定への協力）",
+      "title": "シェルパ・アンド・カンパニー「シェルパ、多様なステークホルダーの声を反映し、マテリアリティ（重要課題）を特定」（マテリアリティ策定への協力）",
+      "links": [
+        "https://cierpa.co.jp/posts/20260312"
+      ],
+      "subs": []
+    },
+    {
       "date": "2025-02-18",
       "rawtitle": "2025.02.18-日経Digital Governance連載「AIリスクを考える」",
       "title": "日経Digital Governance連載「AIリスクを考える」",
@@ -400,6 +427,15 @@ window.SITE_DATA = {
       "title": "電通総研「AIエージェント決済の実装にむけて　～ガバナンスから認証・認可まで～」",
       "links": [
         "https://peatix.com/event/4846869"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-01-20",
+      "rawtitle": "2026.01.20_プライバシーテック協会「データ共創会議2026」内セッション「国産AIは実現するのか？」（モデレータ）",
+      "title": "プライバシーテック協会「データ共創会議2026」内セッション「国産AIは実現するのか？」（モデレータ）",
+      "links": [
+        "https://privacytech-assoc.org/conference2026"
       ],
       "subs": []
     },
