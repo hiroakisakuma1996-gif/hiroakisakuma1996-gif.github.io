@@ -359,6 +359,69 @@ window.SITE_DATA = {
   ],
   "speaking": [
     {
+      "date": "2026-06-22",
+      "rawtitle": "2026.06.22_ST/CRDS 連続シンポジウム「様々な分野に広がるトラスト研究：総合知による取り組みへ」 第11回「AGI/ASIの制御・共生とトラスト」",
+      "title": "ST/CRDS 連続シンポジウム「様々な分野に広がるトラスト研究：総合知による取り組みへ」 第11回「AGI/ASIの制御・共生とトラスト」",
+      "links": [
+        "https://www.jst.go.jp/crds/sympo/20260622/index.html"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-05-21",
+      "rawtitle": "2026.05.21_AI時代における適正なパーソナルデータ活用の在り方検討会 活動報告会",
+      "title": "AI時代における適正なパーソナルデータ活用の在り方検討会 活動報告会",
+      "links": [
+        "https://peatix.com/event/4999964"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-04-23",
+      "rawtitle": "2026.04.23_データ社会推進協議会ほか「PETsが実現する安心・安全なデータ連携〜AI社会におけるPETsの本格始動に向けて〜」内セッション「AI活用、AIガバナンスから見たPETs社会実装への期待と課題」",
+      "title": "データ社会推進協議会ほか「PETsが実現する安心・安全なデータ連携〜AI社会におけるPETsの本格始動に向けて〜」内セッション「AI活用、AIガバナンスから見たPETs社会実装への期待と課題」",
+      "links": [
+        "https://data-society-alliance.org/lecture-event/15991/"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-04-09",
+      "rawtitle": "2026.04.09_De-Silo Academic Insights #24「「AIナラティブ」の解剖──AIのリスクと未来社会を語り直すために」",
+      "title": "De-Silo Academic Insights #24「「AIナラティブ」の解剖──AIのリスクと未来社会を語り直すために」",
+      "links": [
+        "https://desilo.substack.com/p/academic-insights-24"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-03-06",
+      "rawtitle": "2026.03.06_電通総研「AIエージェント決済の実装にむけて　～ガバナンスから認証・認可まで～」",
+      "title": "電通総研「AIエージェント決済の実装にむけて　～ガバナンスから認証・認可まで～」",
+      "links": [
+        "https://peatix.com/event/4846869"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-01-16",
+      "rawtitle": "2026.01.16_AIガバナンス協会「ガバナン」内企画「2026年上半期・AIガバナンス4大トピック」",
+      "title": "AIガバナンス協会「ガバナン」内企画「2026年上半期・AIガバナンス4大トピック」",
+      "links": [
+        "https://www.youtube.com/watch?v=Cz6mkYU7Mz4&t=500s"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2025-12-26",
+      "rawtitle": "2025.12.26_AIガバナンス協会「ガバナン」内企画「4大トピックで振り返る2025年のAIガバナンス」",
+      "title": "AIガバナンス協会「ガバナン」内企画「4大トピックで振り返る2025年のAIガバナンス」",
+      "links": [
+        "https://www.youtube.com/watch?v=lEHGPgarO0w"
+      ],
+      "subs": []
+    },
+    {
       "date": "2026-05-08",
       "rawtitle": "2026.05.08_学術バーQ「AI for/against US 「人間にしかできないこと」のゆくえ」",
       "title": "学術バーQ「AI for/against US 「人間にしかできないこと」のゆくえ」",
