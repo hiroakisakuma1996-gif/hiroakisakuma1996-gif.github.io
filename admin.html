@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>コンテンツ管理 ｜ Hiroaki Sakuma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#081610; --bg-soft:#0d2018; --bg-card:#112a1f; --line:#284536; --line-soft:#1b3327;
+    --fg:#f4f4f5; --fg-dim:#a9a9b2; --fg-faint:#6c6c76; --accent:#e9b949; --green:#40aa76;
+    --sans:"Inter","Noto Sans JP",system-ui,sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:880px;margin:0 auto;padding:2rem clamp(1rem,4vw,2.5rem) 8rem;}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+  header.top h1{font-size:1.3rem;font-weight:600;margin:0;letter-spacing:.03em;}
+  header.top .sub{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--fg-faint);}
+  .back{font-size:.78rem;color:var(--fg-dim);border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;text-decoration:none;transition:.25s var(--ease);}
+  .back:hover{border-color:var(--green);color:var(--fg);}
+
+  .seg{display:inline-flex;background:var(--bg-soft);border:1px solid var(--line);border-radius:999px;padding:.25rem;margin-bottom:1.6rem;}
+  .seg button{appearance:none;background:none;border:0;color:var(--fg-dim);cursor:pointer;font-family:var(--sans);font-size:.82rem;letter-spacing:.08em;padding:.5rem 1.1rem;border-radius:999px;transition:.25s var(--ease);}
+  .seg button.active{background:var(--fg);color:var(--bg);font-weight:500;}
+
+  .card{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.5rem;margin-bottom:1.6rem;}
+  .card h2{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fg-faint);margin:0 0 1.1rem;}
+  label{display:block;font-size:.74rem;letter-spacing:.06em;color:var(--fg-dim);margin:0 0 .4rem;}
+  input[type=text],input[type=date],input[type=url],input[type=password],textarea{
+    width:100%;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--fg);
+    font-family:var(--sans);font-size:.92rem;padding:.6rem .8rem;transition:border-color .25s var(--ease);
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--green);}
+  textarea{resize:vertical;min-height:60px;line-height:1.6;}
+  .field{margin-bottom:1rem;}
+  .links-list{display:flex;flex-direction:column;gap:.55rem;}
+  .link-row{display:flex;gap:.5rem;}
+  .link-row input{flex:1;}
+  .icon-btn{appearance:none;background:var(--bg);border:1px solid var(--line);color:var(--fg-dim);cursor:pointer;border-radius:8px;width:38px;flex:0 0 38px;font-size:1rem;transition:.25s var(--ease);}
+  .icon-btn:hover{border-color:#a14a4a;color:#e88;}
+  .add-link{align-self:flex-start;background:none;border:1px dashed var(--line);color:var(--fg-dim);cursor:pointer;font-family:var(--sans);font-size:.76rem;padding:.4rem .8rem;border-radius:8px;margin-top:.2rem;transition:.25s var(--ease);}
+  .add-link:hover{border-color:var(--green);color:var(--fg);}
+
+  .row-actions{display:flex;gap:.7rem;align-items:center;margin-top:1.1rem;flex-wrap:wrap;}
+  .btn{appearance:none;border:0;cursor:pointer;font-family:var(--sans);font-size:.85rem;font-weight:500;letter-spacing:.04em;padding:.65rem 1.3rem;border-radius:9px;transition:.25s var(--ease);}
+  .btn-primary{background:var(--green);color:#03150c;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{background:none;border:1px solid var(--line);color:var(--fg-dim);}
+  .btn-ghost:hover{border-color:var(--fg-faint);color:var(--fg);}
+  .editing-note{font-size:.76rem;color:var(--accent);}
+
+  .list{list-style:none;padding:0;margin:0;}
+  .list li{display:grid;grid-template-columns:86px 1fr auto;gap:.9rem;align-items:start;padding:.8rem .2rem;border-top:1px solid var(--line-soft);}
+  .list li:first-child{border-top:0;}
+  .li-date{font-size:.74rem;color:var(--fg-faint);font-variant-numeric:tabular-nums;padding-top:.15rem;}
+  .li-title{font-size:.9rem;color:var(--fg);}
+  .li-links{margin-top:.25rem;font-size:.72rem;color:var(--fg-faint);word-break:break-all;}
+  .li-actions{display:flex;gap:.4rem;}
+  .li-actions button{appearance:none;background:none;border:1px solid var(--line);color:var(--fg-dim);cursor:pointer;font-size:.72rem;padding:.25rem .55rem;border-radius:7px;transition:.2s var(--ease);}
+  .li-actions button:hover{border-color:var(--green);color:var(--fg);}
+  .li-actions button.del:hover{border-color:#a14a4a;color:#e88;}
+  .count{font-size:.72rem;color:var(--fg-faint);margin-left:.5rem;}
+
+  /* save bar */
+  .savebar{position:fixed;left:0;right:0;bottom:0;background:rgba(8,22,16,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:.9rem clamp(1rem,4vw,2.5rem);z-index:20;}
+  .savebar-inner{max-width:880px;margin:0 auto;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;}
+  .dirty{font-size:.78rem;color:var(--accent);margin-right:auto;}
+  .dirty.clean{color:var(--fg-faint);}
+  details.gh{margin-top:0;}
+  details.gh summary{cursor:pointer;font-size:.78rem;color:var(--fg-dim);list-style:none;}
+  details.gh summary::-webkit-details-marker{display:none;}
+  .gh-body{margin-top:.8rem;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--bg-soft);}
+  .gh-body p{font-size:.76rem;color:var(--fg-dim);margin:.2rem 0 .8rem;}
+  .gh-body a{color:var(--green);}
+  .status{font-size:.78rem;margin-top:.6rem;min-height:1.2em;}
+  .status.ok{color:var(--green);} .status.err{color:#e88;} .status.busy{color:var(--accent);}
+  code{background:var(--bg);padding:.1rem .4rem;border-radius:5px;font-size:.85em;color:var(--fg-dim);}
+  .toast{position:fixed;bottom:5.2rem;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--green);color:var(--fg);font-size:.82rem;padding:.6rem 1.1rem;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .3s var(--ease);z-index:30;}
+  .toast.show{opacity:1;}
+  @media(max-width:560px){ .list li{grid-template-columns:1fr;} .li-date{order:-1;} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <div class="sub">Content Admin</div>
+        <h1>コンテンツ管理</h1>
+      </div>
+      <a class="back" href="index.html">← サイトを見る</a>
+    </header>
+
+    <div class="seg" id="seg">
+      <button data-cat="publications" class="active">Publications</button>
+      <button data-cat="speaking">Speaking</button>
+    </div>
+
+    <div class="card">
+      <h2 id="formTitle">新規追加</h2>
+      <div class="field">
+        <label for="f-date">日付</label>
+        <input type="date" id="f-date" />
+      </div>
+      <div class="field">
+        <label for="f-title">タイトル</label>
+        <textarea id="f-title" placeholder="例）日経新聞「〜」（コメント掲載）"></textarea>
+      </div>
+      <div class="field">
+        <label>リンク（任意・複数可）</label>
+        <div class="links-list" id="links-list"></div>
+        <button type="button" class="add-link" id="addLink">＋ リンクを追加</button>
+      </div>
+      <div class="row-actions">
+        <button class="btn btn-primary" id="saveEntry">追加する</button>
+        <button class="btn btn-ghost" id="cancelEdit" style="display:none;">キャンセル</button>
+        <span class="editing-note" id="editingNote"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>登録済み <span class="count" id="listCount"></span></h2>
+      <ul class="list" id="list"></ul>
+    </div>
+  </div>
+
+  <div class="savebar">
+    <div class="savebar-inner">
+      <span class="dirty clean" id="dirty">変更はありません</span>
+      <button class="btn btn-ghost" id="copyBtn">クリップボードにコピー</button>
+      <button class="btn btn-ghost" id="downloadBtn">data.js をダウンロード</button>
+      <button class="btn btn-primary" id="publishBtn">GitHubに公開</button>
+    </div>
+    <div class="savebar-inner" style="margin-top:.7rem;">
+      <details class="gh" id="ghDetails">
+        <summary>⚙ GitHub公開の設定（初回のみ）</summary>
+        <div class="gh-body">
+          <p>
+            GitHubの<a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">Fine-grained Personal Access Token</a>を発行し、
+            対象リポジトリ <code>hiroakisakuma1996-gif.github.io</code> の <b>Contents: Read and write</b> 権限を付与して貼り付けてください。
+            トークンはこのブラウザ内（localStorage）にのみ保存され、外部には送信されません（GitHub APIのみ）。
+          </p>
+          <div class="field" style="margin-bottom:.6rem;">
+            <label for="f-token">アクセストークン</label>
+            <input type="password" id="f-token" placeholder="github_pat_..." autocomplete="off" />
+          </div>
+          <button class="btn btn-ghost" id="saveToken">トークンを保存</button>
+          <span class="status" id="tokenStatus"></span>
+        </div>
+      </details>
+    </div>
+    <div class="savebar-inner"><span class="status" id="pubStatus"></span></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script>
+  (function(){
+    "use strict";
+    const REPO={owner:"hiroakisakuma1996-gif",name:"hiroakisakuma1996-gif.github.io",branch:"main",path:"data.js"};
+    const $=(s)=>document.querySelector(s);
+    const data=JSON.parse(JSON.stringify(window.SITE_DATA||{}));
+    if(!Array.isArray(data.publications))data.publications=[];
+    if(!Array.isArray(data.speaking))data.speaking=[];
+    let cat="publications";
+    let editIndex=null;     // index in data[cat] when editing
+    let dirty=false;
+
+    /* ---- helpers ---- */
+    const dot=(iso)=> iso? iso.replace(/-/g,".") : "";
+    const esc=(s)=>String(s==null?"":s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const hostOf=(u)=>{try{return new URL(u).hostname.replace(/^www\./,"");}catch(e){return u;}};
+    function setDirty(v){ dirty=v; const d=$("#dirty"); if(v){d.textContent="● 未保存の変更があります"; d.classList.remove("clean");} else {d.textContent="変更はありません"; d.classList.add("clean");} }
+    function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1900); }
+
+    /* ---- link inputs ---- */
+    function addLinkRow(val){
+      const row=document.createElement("div"); row.className="link-row";
+      const inp=document.createElement("input"); inp.type="url"; inp.placeholder="https://..."; inp.value=val||"";
+      const del=document.createElement("button"); del.type="button"; del.className="icon-btn"; del.textContent="×"; del.title="削除";
+      del.onclick=()=>row.remove();
+      row.appendChild(inp); row.appendChild(del);
+      $("#links-list").appendChild(row);
+    }
+    function getLinks(){ return Array.from(document.querySelectorAll("#links-list input")).map(i=>i.value.trim()).filter(Boolean); }
+    function resetLinks(arr){ $("#links-list").innerHTML=""; (arr&&arr.length?arr:[""]).forEach(v=>addLinkRow(v)); }
+
+    /* ---- form ---- */
+    function resetForm(){
+      editIndex=null;
+      $("#f-date").value=""; $("#f-title").value=""; resetLinks([]);
+      $("#formTitle").textContent="新規追加";
+      $("#saveEntry").textContent="追加する";
+      $("#cancelEdit").style.display="none";
+      $("#editingNote").textContent="";
+    }
+    function loadForEdit(idx){
+      const e=data[cat][idx]; if(!e)return;
+      editIndex=idx;
+      $("#f-date").value=e.date||"";
+      $("#f-title").value=e.title||"";
+      resetLinks(e.links||[]);
+      $("#formTitle").textContent="編集";
+      $("#saveEntry").textContent="更新する";
+      $("#cancelEdit").style.display="";
+      $("#editingNote").textContent="既存の項目を編集中";
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function saveEntry(){
+      const date=$("#f-date").value.trim();
+      const title=$("#f-title").value.trim();
+      const links=getLinks();
+      if(!date){ toast("日付を入力してください"); return; }
+      if(!title){ toast("タイトルを入力してください"); return; }
+      const entry={ date, rawtitle: dot(date)+"_"+title, title, links, subs: (editIndex!=null&&data[cat][editIndex].subs)||[] };
+      if(editIndex!=null){ data[cat][editIndex]=entry; }
+      else { data[cat].unshift(entry); }
+      setDirty(true); resetForm(); render();
+      toast(editIndex!=null?"更新しました":"追加しました（未公開）");
+    }
+    function delEntry(idx){
+      const e=data[cat][idx]; if(!e)return;
+      if(!confirm("削除しますか？\n\n"+e.date+"  "+e.title)) return;
+      data[cat].splice(idx,1); setDirty(true);
+      if(editIndex===idx) resetForm();
+      render();
+    }
+
+    /* ---- list ---- */
+    function render(){
+      const arr=data[cat].map((e,i)=>({e,i})).sort((a,b)=>((a.e.date||"")<(b.e.date||"")?1:-1));
+      $("#listCount").textContent="（"+arr.length+"件）";
+      const ul=$("#list"); ul.innerHTML="";
+      arr.forEach(({e,i})=>{
+        const li=document.createElement("li");
+        const links=(e.links||[]).map(l=>`<a href="${esc(l)}" target="_blank" rel="noopener">${esc(hostOf(l))} ↗</a>`).join("　");
+        li.innerHTML=`
+          <span class="li-date">${esc(dot(e.date))}</span>
+          <span><span class="li-title">${esc(e.title)}</span>${links?`<div class="li-links">${links}</div>`:`<div class="li-links">（リンクなし）</div>`}</span>
+          <span class="li-actions"><button data-edit="${i}">編集</button><button class="del" data-del="${i}">削除</button></span>`;
+        ul.appendChild(li);
+      });
+    }
+
+    /* ---- serialize / export ---- */
+    function serialize(){ return "window.SITE_DATA = "+JSON.stringify(data,null,2)+";\n"; }
+    function download(){
+      const blob=new Blob([serialize()],{type:"text/javascript"});
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="data.js";
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+      toast("data.js をダウンロードしました");
+    }
+    async function copy(){
+      try{ await navigator.clipboard.writeText(serialize()); toast("クリップボードにコピーしました"); }
+      catch(e){ toast("コピーに失敗しました"); }
+    }
+
+    /* ---- GitHub publish ---- */
+    function utf8ToBase64(str){
+      const bytes=new TextEncoder().encode(str); let bin=""; const ch=0x8000;
+      for(let i=0;i<bytes.length;i+=ch){ bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+ch)); }
+      return btoa(bin);
+    }
+    async function publish(){
+      const token=localStorage.getItem("gh_token");
+      const st=$("#pubStatus");
+      if(!token){ $("#ghDetails").open=true; st.className="status err"; st.textContent="先に GitHubトークンを設定してください。"; return; }
+      const api=`https://api.github.com/repos/${REPO.owner}/${REPO.name}/contents/${REPO.path}`;
+      const headers={Authorization:"Bearer "+token,Accept:"application/vnd.github+json","Content-Type":"application/json"};
+      st.className="status busy"; st.textContent="公開中…";
+      try{
+        const g=await fetch(api+"?ref="+REPO.branch,{headers});
+        if(!g.ok) throw new Error("取得失敗 ("+g.status+"). トークン権限を確認してください。");
+        const cur=await g.json();
+        const body={message:"Update data.js via admin form",content:utf8ToBase64(serialize()),sha:cur.sha,branch:REPO.branch};
+        const p=await fetch(api,{method:"PUT",headers,body:JSON.stringify(body)});
+        if(!p.ok){ const er=await p.json().catch(()=>({})); throw new Error((er&&er.message)||("公開失敗 ("+p.status+")")); }
+        setDirty(false);
+        st.className="status ok"; st.textContent="✓ 公開しました。1〜2分でサイトに反映されます。";
+        toast("GitHubに公開しました 🎉");
+      }catch(e){ st.className="status err"; st.textContent="エラー: "+e.message; }
+    }
+
+    /* ---- token ---- */
+    function refreshTokenStatus(){
+      const has=!!localStorage.getItem("gh_token");
+      const ts=$("#tokenStatus");
+      ts.className="status "+(has?"ok":""); ts.textContent=has?"✓ トークン保存済み":"";
+    }
+
+    /* ---- wire up ---- */
+    document.querySelectorAll("#seg button").forEach(b=>b.onclick=()=>{
+      document.querySelectorAll("#seg button").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active"); cat=b.dataset.cat; resetForm(); render();
+    });
+    $("#addLink").onclick=()=>addLinkRow("");
+    $("#saveEntry").onclick=saveEntry;
+    $("#cancelEdit").onclick=resetForm;
+    $("#list").addEventListener("click",(e)=>{
+      const ed=e.target.closest("[data-edit]"); const dl=e.target.closest("[data-del]");
+      if(ed) loadForEdit(+ed.dataset.edit);
+      if(dl) delEntry(+dl.dataset.del);
+    });
+    $("#downloadBtn").onclick=download;
+    $("#copyBtn").onclick=copy;
+    $("#publishBtn").onclick=publish;
+    $("#saveToken").onclick=()=>{
+      const v=$("#f-token").value.trim();
+      if(v){ localStorage.setItem("gh_token",v); $("#f-token").value=""; toast("トークンを保存しました"); }
+      else { localStorage.removeItem("gh_token"); toast("トークンを削除しました"); }
+      refreshTokenStatus();
+    };
+    window.addEventListener("beforeunload",(e)=>{ if(dirty){ e.preventDefault(); e.returnValue=""; } });
+
+    resetLinks([]); resetForm(); render(); refreshTokenStatus(); setDirty(false);
+  })();
+  </script>
+</body>
+</html>
