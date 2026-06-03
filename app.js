@@ -160,7 +160,7 @@
   /* ---------------- LINKS ---------------- */
   function buildLinks() {
     const wrap = $("#links");
-    wrap.appendChild(sectionHead("リンク", "Links"));
+    wrap.appendChild(sectionHead("リンク・連絡先", "Links & Contacts"));
     const grid = el("div", "link-grid");
     (D.links || []).forEach((l) => {
       const a = el("a", "link-card");
