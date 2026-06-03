@@ -35,7 +35,7 @@
       const card = el("a", "feature-card");
       card.href = b.link; card.target = "_blank"; card.rel = "noopener";
       card.innerHTML = `
-        <div class="feature-icon">📕</div>
+        ${b.cover ? `<img class="feature-cover" src="${esc(b.cover)}" alt="${esc(b.title)} 書影" loading="lazy" />` : ""}
         <div>
           <div class="feature-badge">${esc(b.badge)}</div>
           <h3>${esc(b.title)}</h3>

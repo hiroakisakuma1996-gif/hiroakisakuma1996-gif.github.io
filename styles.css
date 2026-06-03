@@ -1,9 +1,9 @@
 :root {
-  --bg: #0a0a0b;
-  --bg-soft: #121214;
-  --bg-card: #16161a;
-  --line: #2a2a30;
-  --line-soft: #1e1e22;
+  --bg: #081610;
+  --bg-soft: #0d2018;
+  --bg-card: #112a1f;
+  --line: #284536;
+  --line-soft: #1b3327;
   --fg: #f4f4f5;
   --fg-dim: #a9a9b2;
   --fg-faint: #6c6c76;
@@ -34,7 +34,7 @@ a { color: inherit; text-decoration: none; }
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
     radial-gradient(900px 500px at 78% -8%, rgba(233,185,73,.07), transparent 60%),
-    radial-gradient(700px 600px at 0% 100%, rgba(120,130,180,.05), transparent 55%);
+    radial-gradient(700px 600px at 0% 100%, rgba(64,170,118,.07), transparent 55%);
 }
 
 /* ---------- Header / tabs ---------- */
@@ -43,7 +43,7 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 1.5rem;
   padding: 1rem clamp(1.2rem, 4vw, 3rem);
-  background: rgba(10,10,11,.72);
+  background: rgba(8,22,16,.74);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line-soft);
 }
@@ -100,7 +100,13 @@ main { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; pa
 .feature-card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--accent-line); }
 .feature-card:hover { border-color: #3a3a42; transform: translateY(-2px); }
 .feature-badge { font-size: .64rem; letter-spacing: .28em; text-transform: uppercase; color: var(--accent-line); }
-.feature-icon { font-size: 2.2rem; line-height: 1; padding-top: .2rem; }
+.feature-cover {
+  width: 132px; height: auto; display: block;
+  border-radius: 6px; border: 1px solid var(--line);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
+  transition: transform .35s var(--ease);
+}
+.feature-card:hover .feature-cover { transform: translateY(-2px) scale(1.015); }
 .feature-card h3 { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; margin: .5rem 0 .3rem; }
 .feature-meta { color: var(--fg-faint); font-size: .82rem; letter-spacing: .04em; margin-bottom: .8rem; }
 .feature-card p { color: var(--fg-dim); font-size: .92rem; margin: 0 0 1rem; }
@@ -208,7 +214,7 @@ main { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; pa
 @media (max-width: 720px) {
   .tabs {
     position: fixed; inset: 64px 0 auto 0; flex-direction: column; gap: 0;
-    background: rgba(10,10,11,.97); backdrop-filter: blur(14px);
+    background: rgba(8,22,16,.97); backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line); padding: .6rem 1rem 1.2rem;
     transform: translateY(-120%); transition: transform .4s var(--ease); pointer-events: none;
   }

@@ -9,7 +9,8 @@ window.SITE_DATA = {
     "title": "『AIリスクの解剖―決定と責任を社会学的に考える』",
     "meta": "中央経済社, 2026年 — 近日発売！",
     "desc": "ＡＩにつきまとう漠然とした不安の正体とは。ＡＩを取り巻く批判的な言説から「ＡＩリスク」が何を指すかを読み解き、建設的に議論を進めるための思考の機軸と道筋を示す。",
-    "link": "https://www.biz-book.jp/isbn/978-4-502-56811-4"
+    "link": "https://www.biz-book.jp/isbn/978-4-502-56811-4",
+    "cover": "assets/book-cover.jpg"
   },
   "roles": [
     {
