@@ -158,6 +158,32 @@
   }
 
   /* ---------------- LINKS ---------------- */
+  // Fetch the channel's latest video id (RSS via CORS proxy) and swap the iframe.
+  // Falls back silently to the pre-set video if every proxy is unavailable.
+  async function loadLatestYouTube(channelId, iframe) {
+    if (!iframe) return;
+    const feed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+    const proxies = [
+      (u) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
+      (u) => "https://corsproxy.io/?url=" + encodeURIComponent(u),
+    ];
+    for (const wrap of proxies) {
+      try {
+        const r = await fetch(wrap(feed));
+        if (!r.ok) continue;
+        const text = await r.text();
+        const m = text.match(/<yt:videoId>([\w-]{6,})<\/yt:videoId>/);
+        if (m && m[1]) {
+          const next = "https://www.youtube.com/embed/" + m[1] + "?rel=0";
+          if (iframe.src !== next) iframe.src = next;
+          return;
+        }
+      } catch (e) {
+        /* try next proxy */
+      }
+    }
+  }
+
   function buildLinks() {
     const wrap = $("#links");
     const sections = D.link_sections || [
@@ -168,14 +194,17 @@
       if (i > 0) wrap.appendChild(el("hr", "rule"));
       wrap.appendChild(sectionHead(sec.title, sec.en || ""));
 
-      if (sec.youtube_embed) {
+      if (sec.youtube_fallback_video || sec.youtube_channel_id) {
         const yt = el("div", "yt-embed");
+        const vid = sec.youtube_fallback_video || "";
         yt.innerHTML =
-          `<iframe src="${esc(sec.youtube_embed)}" title="${esc(sec.title)} — 最新動画" ` +
+          `<iframe src="${vid ? "https://www.youtube.com/embed/" + esc(vid) + "?rel=0" : ""}" ` +
+          `title="${esc(sec.title)} — 最新動画" ` +
           `loading="lazy" frameborder="0" allowfullscreen ` +
           `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>`;
         wrap.appendChild(yt);
         wrap.appendChild(el("div", "yt-caption", "▶ 最新エピソードを自動表示"));
+        if (sec.youtube_channel_id) loadLatestYouTube(sec.youtube_channel_id, yt.querySelector("iframe"));
       }
 
       const grid = el("div", "link-grid");

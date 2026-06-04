@@ -835,7 +835,8 @@ window.SITE_DATA = {
     {
       "title": "ぶんけい×AIラジオ",
       "en": "Bunkei × AI Radio",
-      "youtube_embed": "https://www.youtube.com/embed/videoseries?list=UU5hCq_5jUdxPLaNPiM_TQAA",
+      "youtube_channel_id": "UC5hCq_5jUdxPLaNPiM_TQAA",
+      "youtube_fallback_video": "u9BevqUNDmM",
       "links": [
         {
           "label": "YouTube",
