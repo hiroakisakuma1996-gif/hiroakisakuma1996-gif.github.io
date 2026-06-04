@@ -12,7 +12,7 @@ window.SITE_DATA = {
   "book": {
     "badge": "Recent Publication",
     "title": "『AIリスクの解剖―決定と責任を社会学的に考える』",
-    "meta": "中央経済社, 2026年 — 近日発売！",
+    "meta": "中央経済社, 2026年 — 発売中",
     "desc": "ＡＩにつきまとう漠然とした不安の正体とは。ＡＩを取り巻く批判的な言説から「ＡＩリスク」が何を指すかを読み解き、建設的に議論を進めるための思考の機軸と道筋を示す。",
     "link": "https://www.biz-book.jp/isbn/978-4-502-56811-4",
     "cover": "assets/book-cover.jpg"
@@ -831,30 +831,48 @@ window.SITE_DATA = {
       "subs": []
     }
   ],
-  "links": [
+  "link_sections": [
     {
-      "label": "Researchmap",
-      "url": "https://researchmap.jp/hiroaki-sakuma.1996"
+      "title": "ぶんけい×AIラジオ",
+      "en": "Bunkei × AI Radio",
+      "youtube_embed": "https://www.youtube.com/embed/videoseries?list=UU5hCq_5jUdxPLaNPiM_TQAA",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@%E3%81%B6%E3%82%93%E3%81%91%E3%81%84AI%E3%83%A9%E3%82%B8%E3%82%AA"
+        },
+        {
+          "label": "Spotify",
+          "url": "https://open.spotify.com/show/5V6WGTe9Ik8YhSTVkIsNJl?si=C3DLfROBSSue8q70l7JbcA"
+        },
+        {
+          "label": "Voicy",
+          "url": "https://voicy.jp/channel/845818"
+        }
+      ]
     },
     {
-      "label": "note",
-      "url": "https://note.com/ymtk1996"
-    },
-    {
-      "label": "Spotify「ぶんけい×AIラジオ」",
-      "url": "https://open.spotify.com/show/5V6WGTe9Ik8YhSTVkIsNJl?si=C3DLfROBSSue8q70l7JbcA"
-    },
-    {
-      "label": "Voicy「ぶんけい×AIラジオ」",
-      "url": "https://voicy.jp/channel/845818"
-    },
-    {
-      "label": "Facebook",
-      "url": "https://www.facebook.com/hiroaki.sakuma.319"
-    },
-    {
-      "label": "LinkedIn",
-      "url": "https://www.linkedin.com/in/hiroaki-sakuma-b302ab101/"
+      "title": "リンク・連絡先",
+      "en": "Links & Contacts",
+      "contact": true,
+      "links": [
+        {
+          "label": "Researchmap",
+          "url": "https://researchmap.jp/hiroaki-sakuma.1996"
+        },
+        {
+          "label": "note",
+          "url": "https://note.com/ymtk1996"
+        },
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/hiroaki.sakuma.319"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/hiroaki-sakuma-b302ab101/"
+        }
+      ]
     }
   ]
 };

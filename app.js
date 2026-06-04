@@ -160,21 +160,39 @@
   /* ---------------- LINKS ---------------- */
   function buildLinks() {
     const wrap = $("#links");
-    wrap.appendChild(sectionHead("リンク・連絡先", "Links & Contacts"));
-    const grid = el("div", "link-grid");
-    (D.links || []).forEach((l) => {
-      const a = el("a", "link-card");
-      a.href = l.url; a.target = "_blank"; a.rel = "noopener";
-      a.innerHTML = `<span class="lc-label">${esc(l.label)}</span><span class="lc-arrow">↗</span>`;
-      grid.appendChild(a);
-    });
-    wrap.appendChild(grid);
+    const sections = D.link_sections || [
+      { title: "リンク・連絡先", en: "Links & Contacts", contact: true, links: D.links || [] },
+    ];
 
-    if (D.email) {
-      const c = el("div", "contact-block");
-      c.innerHTML = `<h4>Contact</h4><div class="email">${esc(D.email)}</div>`;
-      wrap.appendChild(c);
-    }
+    sections.forEach((sec, i) => {
+      if (i > 0) wrap.appendChild(el("hr", "rule"));
+      wrap.appendChild(sectionHead(sec.title, sec.en || ""));
+
+      if (sec.youtube_embed) {
+        const yt = el("div", "yt-embed");
+        yt.innerHTML =
+          `<iframe src="${esc(sec.youtube_embed)}" title="${esc(sec.title)} — 最新動画" ` +
+          `loading="lazy" frameborder="0" allowfullscreen ` +
+          `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>`;
+        wrap.appendChild(yt);
+        wrap.appendChild(el("div", "yt-caption", "▶ 最新エピソードを自動表示"));
+      }
+
+      const grid = el("div", "link-grid");
+      (sec.links || []).forEach((l) => {
+        const a = el("a", "link-card");
+        a.href = l.url; a.target = "_blank"; a.rel = "noopener";
+        a.innerHTML = `<span class="lc-label">${esc(l.label)}</span><span class="lc-arrow">↗</span>`;
+        grid.appendChild(a);
+      });
+      wrap.appendChild(grid);
+
+      if (sec.contact && D.email) {
+        const c = el("div", "contact-block");
+        c.innerHTML = `<h4>Contact</h4><div class="email">${esc(D.email)}</div>`;
+        wrap.appendChild(c);
+      }
+    });
   }
 
   function sectionHead(ja, en) {
