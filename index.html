@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
+<script>document.write('<link rel="stylesheet" href="styles.css?v=' + Date.now() + '">');</script>
 </head>
 <body>
   <div class="bg-grain" aria-hidden="true"></div>
@@ -56,7 +56,12 @@
     </div>
   </footer>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script>
+    // Cache-busting loader: always fetch the latest data and code so content
+    // updates (e.g. via admin.html) appear immediately for every visitor.
+    var _v = Date.now();
+    document.write('<scr' + 'ipt src="data.js?v=' + _v + '"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="app.js?v=' + _v + '"></scr' + 'ipt>');
+  </script>
 </body>
 </html>
