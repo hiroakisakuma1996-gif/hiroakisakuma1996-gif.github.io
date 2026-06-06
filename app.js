@@ -266,7 +266,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     buildNews();
     buildProfile();
-    buildTimeline("publications", D.publications || [], "Publications / Interviews", "Writing & Media");
+    buildTimeline("publications", D.publications || [], "記事・メディア出演", "Publications / Interviews");
     buildTimeline("speaking", D.speaking || [], "登壇・講演", "Speaking");
     buildLinks();
     setupTabs();
