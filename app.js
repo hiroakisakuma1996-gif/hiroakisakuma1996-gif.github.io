@@ -158,28 +158,47 @@
   }
 
   /* ---------------- LINKS ---------------- */
-  // Fetch the channel's latest video id (RSS via CORS proxy) and swap the iframe.
-  // Falls back silently to the pre-set video if every proxy is unavailable.
-  async function loadLatestYouTube(channelId, iframe) {
+  // Swap the iframe to the channel's newest upload.
+  // 1) Prefer a same-origin JSON kept fresh by a GitHub Action (reliable, no CORS).
+  // 2) Fall back to fetching the RSS feed via a public CORS proxy (best effort).
+  // 3) If all else fails, the pre-set fallback video stays in place.
+  async function loadLatestYouTube(opts, iframe) {
     if (!iframe) return;
-    const feed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
-    const proxies = [
-      (u) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
-      (u) => "https://corsproxy.io/?url=" + encodeURIComponent(u),
-    ];
-    for (const wrap of proxies) {
+    const setSrc = (id) => {
+      const next = "https://www.youtube.com/embed/" + id + "?rel=0";
+      if (iframe.src !== next) iframe.src = next;
+    };
+
+    // 1) same-origin file maintained server-side
+    if (opts.file) {
       try {
-        const r = await fetch(wrap(feed));
-        if (!r.ok) continue;
-        const text = await r.text();
-        const m = text.match(/<yt:videoId>([\w-]{6,})<\/yt:videoId>/);
-        if (m && m[1]) {
-          const next = "https://www.youtube.com/embed/" + m[1] + "?rel=0";
-          if (iframe.src !== next) iframe.src = next;
-          return;
+        const r = await fetch(opts.file + "?t=" + Date.now(), { cache: "no-store" });
+        if (r.ok) {
+          const j = await r.json();
+          if (j && j.videoId) { setSrc(j.videoId); return; }
         }
       } catch (e) {
-        /* try next proxy */
+        /* fall through to proxy */
+      }
+    }
+
+    // 2) RSS via CORS proxy
+    if (opts.channelId) {
+      const feed = "https://www.youtube.com/feeds/videos.xml?channel_id=" + opts.channelId;
+      const proxies = [
+        (u) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
+        (u) => "https://corsproxy.io/?url=" + encodeURIComponent(u),
+      ];
+      for (const wrap of proxies) {
+        try {
+          const r = await fetch(wrap(feed));
+          if (!r.ok) continue;
+          const text = await r.text();
+          const m = text.match(/<yt:videoId>([\w-]{6,})<\/yt:videoId>/);
+          if (m && m[1]) { setSrc(m[1]); return; }
+        } catch (e) {
+          /* try next proxy */
+        }
       }
     }
   }
@@ -204,7 +223,12 @@
           `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>`;
         wrap.appendChild(yt);
         wrap.appendChild(el("div", "yt-caption", "▶ 最新エピソードを自動表示"));
-        if (sec.youtube_channel_id) loadLatestYouTube(sec.youtube_channel_id, yt.querySelector("iframe"));
+        if (sec.youtube_channel_id || sec.youtube_latest_file) {
+          loadLatestYouTube(
+            { channelId: sec.youtube_channel_id, file: sec.youtube_latest_file },
+            yt.querySelector("iframe")
+          );
+        }
       }
 
       const grid = el("div", "link-grid");

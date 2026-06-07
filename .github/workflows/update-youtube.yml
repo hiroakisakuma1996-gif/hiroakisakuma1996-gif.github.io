@@ -1,0 +1,57 @@
+name: Update latest YouTube video
+
+# Keeps assets/youtube-latest.json pointing at the channel's newest upload,
+# so the site's embed always shows the latest episode. Runs server-side
+# (no CORS), commits only when the latest video actually changes.
+
+on:
+  schedule:
+    - cron: "17 */3 * * *" # every 3 hours
+  workflow_dispatch: {} # allow manual run from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-youtube
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest video id
+        run: |
+          CHANNEL_ID="UC5hCq_5jUdxPLaNPiM_TQAA"
+          FEED="https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}"
+          XML="$(curl -sL --retry 3 --retry-delay 5 "$FEED")"
+          VID="$(printf '%s' "$XML" | grep -oE '<yt:videoId>[^<]+</yt:videoId>' | head -1 | sed -E 's/<[^>]+>//g')"
+          if [ -z "$VID" ]; then
+            echo "Could not extract a video id; leaving file unchanged."
+            exit 0
+          fi
+          echo "Latest video: $VID"
+          mkdir -p assets
+          printf '{"videoId":"%s","updated":"%s"}\n' "$VID" "$(date -u +%F)" > assets/youtube-latest.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Compare only the videoId so a changed date alone doesn't create noise
+          if git diff --quiet -- assets/youtube-latest.json; then
+            echo "No change."
+          else
+            OLD="$(git show HEAD:assets/youtube-latest.json 2>/dev/null | grep -oE '"videoId":"[^"]+"' || true)"
+            NEW="$(grep -oE '"videoId":"[^"]+"' assets/youtube-latest.json || true)"
+            if [ "$OLD" = "$NEW" ]; then
+              echo "Only timestamp changed; skipping commit."
+              git checkout -- assets/youtube-latest.json
+            else
+              git add assets/youtube-latest.json
+              git commit -m "chore: auto-update latest YouTube video"
+              git push
+            fi
+          fi

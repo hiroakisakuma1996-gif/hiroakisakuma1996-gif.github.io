@@ -836,7 +836,8 @@ window.SITE_DATA = {
       "title": "ぶんけい×AIラジオ",
       "en": "Bunkei × AI Radio",
       "youtube_channel_id": "UC5hCq_5jUdxPLaNPiM_TQAA",
-      "youtube_fallback_video": "u9BevqUNDmM",
+      "youtube_latest_file": "assets/youtube-latest.json",
+      "youtube_fallback_video": "TqNiMR67CKI",
       "links": [
         {
           "label": "YouTube",
