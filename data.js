@@ -29,15 +29,19 @@ window.SITE_DATA = {
       ]
     },
     {
-      "text": "総務省AIネットワーク社会推進会議　AIガバナンス検討会委員",
+      "text": "総務省 AIネットワーク社会推進会議　AIガバナンス検討会委員",
       "link": "https://www.soumu.go.jp/main_sosiki/kenkyu/ai_network/index.html"
     },
     {
-      "text": "内閣官房デジタル行財政改革会議事務局政策参与（データ利活用制度検討担当）",
+      "text": "総務省 統計法等に関する研究会構成員",
+      "link": "https://www.soumu.go.jp/menu_news/s-news/01toukatsu01_02000273.html"
+    },
+    {
+      "text": "内閣官房 デジタル行財政改革会議事務局政策参与（データ利活用制度検討担当）",
       "link": "https://www.cas.go.jp/jp/seisaku/digital_gyozaikaikaku/index.html"
     },
     {
-      "text": "デジタル庁先進的AI利活用アドバイザリーボード構成員",
+      "text": "デジタル庁 先進的AI利活用アドバイザリーボード構成員",
       "link": "https://www.digital.go.jp/councils/ai-advisory-board"
     },
     {
