@@ -69,6 +69,37 @@ window.SITE_DATA = {
   ],
   "publications": [
     {
+      "date": "2026-07-29",
+      "rawtitle": "2026.07.29_日本経済新聞「AIガバナンスの国際規格、ABEJAが取得　リスク管理訴求し案件獲得へ」（コメント掲載）",
+      "title": "日本経済新聞「AIガバナンスの国際規格、ABEJAが取得　リスク管理訴求し案件獲得へ」（コメント掲載）",
+      "links": [
+        "https://www.nikkei.com/article/DGXZQOUC2824O0Y6A720C2000000/"
+      ],
+      "subs": []
+    },
+    {
+      "date": "2026-07-01",
+      "rawtitle": "2026.07_Podcast「あしたのルール　ロビイングを考えるラジオ」ゲスト出演",
+      "title": "Podcast「あしたのルール　ロビイングを考えるラジオ」ゲスト出演",
+      "links": [],
+      "subs": [
+        {
+          "date": "2026-06-24",
+          "title": "第21回　なぜ官僚からブーム前のAIガバナンスの世界へ",
+          "links": [
+            "https://open.spotify.com/episode/2lMc4PYUqB0T2yE1WM4MD9"
+          ]
+        },
+        {
+          "date": "2026-07-01",
+          "title": "第22回　AIへの不安は、どこから来ているのか",
+          "links": [
+            "https://open.spotify.com/episode/27O4TRcMUr1Egv6HgPXUlb"
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-06-10",
       "rawtitle": "2026.06.10_東洋経済オンライン連載「#AI大失業が来る」「AIはすごすぎて脅威なのか､それとも欠陥があるから問題か？AIをとりまく〈ナラティブ〉を読み解く3つの視点」",
       "title": "東洋経済オンライン連載「#AI大失業が来る」「AIはすごすぎて脅威なのか､それとも欠陥があるから問題か？AIをとりまく〈ナラティブ〉を読み解く3つの視点」",
