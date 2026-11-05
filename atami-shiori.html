@@ -1,0 +1,666 @@
+<title>熱海 ふたり旅のしおり</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap">
+<style>
+  /* Layout: a warm seaside "travel notebook" — full-bleed sunset cover, a sticky
+     section tab-strip, then booklet cards you fill in like a paper itinerary. */
+  :root{
+    --bg:#FBF4E9;        /* warm cream paper */
+    --surface:#FFFFFF;
+    --surface-2:#FFF8EE; /* softer panel */
+    --ink:#2C3744;       /* deep sea ink */
+    --muted:#86827B;     /* warm grey */
+    --line:#ECE0CF;      /* warm hairline */
+    --line-strong:#E0D1BA;
+    --coral:#E96A47;     /* sunset */
+    --coral-soft:#FBE4DA;
+    --teal:#2E8597;      /* sea */
+    --teal-soft:#DCEFF1;
+    --gold:#E3A445;      /* sun */
+    --shadow:0 12px 30px -18px rgba(60,45,30,.45);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#111A20;
+      --surface:#19242C;
+      --surface-2:#1F2C35;
+      --ink:#ECE3D4;
+      --muted:#9AA6AF;
+      --line:#2A3842;
+      --line-strong:#374955;
+      --coral:#F18562;
+      --coral-soft:#3A2820;
+      --teal:#5EBACC;
+      --teal-soft:#16333A;
+      --gold:#EBB869;
+      --shadow:0 14px 34px -18px rgba(0,0,0,.6);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111A20;
+    --surface:#19242C;
+    --surface-2:#1F2C35;
+    --ink:#ECE3D4;
+    --muted:#9AA6AF;
+    --line:#2A3842;
+    --line-strong:#374955;
+    --coral:#F18562;
+    --coral-soft:#3A2820;
+    --teal:#5EBACC;
+    --teal-soft:#16333A;
+    --gold:#EBB869;
+    --shadow:0 14px 34px -18px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New",system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{ /* paints the safe-area band above the sticky nav */
+    content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+    background:var(--coral);z-index:40;
+  }
+  input,textarea,button{font-family:inherit;color:inherit}
+
+  /* ---------- Cover ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 78% 8%, rgba(227,164,69,.55), transparent 55%),
+      linear-gradient(160deg,#F6A24A 0%, #E96A47 42%, #C7506A 78%, #7E4C86 100%);
+    color:#fff;
+    padding-top:calc(env(safe-area-inset-top,0px) + 40px);
+  }
+  .hero-sun{position:absolute;top:34px;right:12%;width:84px;height:84px;border-radius:50%;
+    background:radial-gradient(circle at 38% 35%, #FFF4D6, #FFD37A 60%, #F6A24A);
+    box-shadow:0 0 44px 10px rgba(255,210,120,.55);opacity:.95}
+  .hero-inner{
+    position:relative;z-index:2;max-width:820px;margin:0 auto;
+    padding-left:max(20px,env(safe-area-inset-left,0px));
+    padding-right:max(20px,env(safe-area-inset-right,0px));
+    padding-bottom:54px;
+  }
+  .eyebrow{
+    font-family:"Yomogi",cursive;font-size:14px;letter-spacing:.22em;
+    text-transform:uppercase;opacity:.92;margin:0 0 6px;
+  }
+  .hero h1,.hero .title-input{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;
+    font-size:clamp(30px,7vw,46px);line-height:1.2;margin:0;
+    text-wrap:balance;letter-spacing:.01em;
+    text-shadow:0 2px 14px rgba(120,40,30,.28);
+  }
+  .title-input{
+    width:100%;background:transparent;border:none;outline:none;color:#fff;
+    padding:2px 0;border-bottom:2px dashed rgba(255,255,255,.35);
+  }
+  .title-input::placeholder{color:rgba(255,255,255,.7)}
+  .title-input:focus{border-bottom-color:rgba(255,255,255,.85)}
+
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:20px;align-items:flex-end}
+  .hm-block{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .hm-label{font-family:"Yomogi",cursive;font-size:12.5px;letter-spacing:.14em;opacity:.9}
+  .hm-value{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pill{
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);
+    border-radius:999px;padding:6px 12px;font-size:15px;color:#fff;font-weight:500;
+  }
+  .pill input{background:transparent;border:none;outline:none;color:#fff;min-width:60px;width:auto}
+  .date-field{
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;
+    padding:5px 12px;color:#fff;outline:none;font-size:14.5px;
+  }
+  .date-field::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.8}
+  .nights{font-size:14px;opacity:.95;font-weight:600}
+  .hero-note{
+    width:100%;margin-top:18px;background:transparent;border:none;outline:none;resize:none;
+    color:#fff;font-family:"Yomogi",cursive;font-size:16px;line-height:1.6;opacity:.96;
+    overflow:hidden;
+  }
+  .hero-note::placeholder{color:rgba(255,255,255,.72)}
+  .wave{position:absolute;left:0;right:0;bottom:-1px;z-index:1;width:100%;height:46px;display:block}
+
+  /* ---------- Sticky nav ---------- */
+  .nav{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+    background:color-mix(in srgb,var(--bg) 88%, transparent);
+    backdrop-filter:saturate(1.3) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:820px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;
+    padding:9px max(14px,env(safe-area-inset-left,0px)) 9px max(14px,env(safe-area-inset-right,0px));
+    scrollbar-width:none;
+  }
+  .nav-inner::-webkit-scrollbar{display:none}
+  .nav button{
+    white-space:nowrap;border:1px solid var(--line-strong);background:var(--surface);
+    color:var(--ink);border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:700;
+    cursor:pointer;transition:.15s;flex:0 0 auto;
+  }
+  .nav button:hover{border-color:var(--coral);color:var(--coral)}
+
+  /* ---------- Page ---------- */
+  .page{
+    max-width:820px;margin:0 auto;
+    padding:30px max(20px,env(safe-area-inset-left,0px)) 70px max(20px,env(safe-area-inset-right,0px));
+    display:flex;flex-direction:column;gap:26px;
+  }
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:20px;
+    box-shadow:var(--shadow);overflow:hidden;
+  }
+  .card-head{
+    display:flex;align-items:center;gap:12px;
+    padding:18px 20px;border-bottom:1px solid var(--line);
+    background:var(--surface-2);
+  }
+  .card-head .ico{
+    flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    background:var(--coral-soft);color:var(--coral);
+  }
+  .card-head.teal .ico{background:var(--teal-soft);color:var(--teal)}
+  .card-head .ico svg{width:21px;height:21px}
+  .card-head h2{
+    font-family:"Zen Maru Gothic",sans-serif;font-size:20px;font-weight:700;margin:0;line-height:1.2;
+  }
+  .card-head .sub{font-size:12.5px;color:var(--muted);font-family:"Yomogi",cursive;letter-spacing:.06em}
+  .card-body{padding:16px 18px 20px}
+
+  /* editable text fields */
+  .fld{
+    width:100%;background:transparent;border:none;outline:none;color:var(--ink);
+    border-bottom:1.5px dashed transparent;padding:3px 2px;font-size:15px;transition:.15s;border-radius:3px;
+  }
+  .fld:hover{border-bottom-color:var(--line-strong)}
+  .fld:focus{border-bottom-color:var(--coral);background:var(--surface-2)}
+  .fld::placeholder{color:var(--muted);opacity:.75}
+  textarea.fld{resize:vertical;border:1.5px dashed var(--line-strong);border-radius:12px;padding:12px 14px;line-height:1.7}
+  textarea.fld:focus{border-style:solid;border-color:var(--coral)}
+
+  /* ---------- Itinerary ---------- */
+  .day{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px;background:var(--surface)}
+  .day-head{
+    display:flex;align-items:center;gap:10px;padding:12px 14px;
+    background:linear-gradient(90deg,var(--teal-soft),transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .day-badge{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--teal);color:#fff;
+    display:grid;place-items:center;font-weight:700;font-size:13px;font-family:"Zen Maru Gothic"}
+  .day-head .fld{font-family:"Zen Maru Gothic";font-weight:700;font-size:16px}
+  .events{padding:6px 12px 12px}
+  .ev{display:flex;gap:12px;padding:12px 4px;border-bottom:1px dashed var(--line)}
+  .ev:last-child{border-bottom:none}
+  .ev-time{flex:0 0 auto;width:58px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+  .ev-time .time-in{
+    width:58px;background:var(--coral-soft);color:var(--coral);font-weight:700;border:none;outline:none;
+    border-radius:8px;padding:5px 6px;text-align:center;font-size:14px;
+  }
+  .ev-dot{width:9px;height:9px;border-radius:50%;background:var(--coral);margin:3px auto 0;box-shadow:0 0 0 4px var(--coral-soft)}
+  .ev-body{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .ev-body .ev-title{font-weight:700;font-size:15.5px}
+  .ev-place{display:flex;align-items:center;gap:5px;color:var(--teal);font-size:13px}
+  .ev-place svg{width:13px;height:13px;flex:0 0 auto}
+  .ev-memo{font-size:13.5px;color:var(--muted)}
+  .ev-tools{flex:0 0 auto;display:flex;flex-direction:column;gap:3px;align-items:center}
+
+  /* list rows (packing / budget / info) */
+  .row{display:flex;align-items:flex-start;gap:10px;padding:9px 2px;border-bottom:1px dashed var(--line)}
+  .row:last-of-type{border-bottom:none}
+  .check{
+    flex:0 0 auto;width:22px;height:22px;margin-top:4px;border-radius:7px;border:2px solid var(--line-strong);
+    background:var(--surface);cursor:pointer;display:grid;place-items:center;transition:.15s;appearance:none;
+  }
+  .check:checked{background:var(--teal);border-color:var(--teal)}
+  .check:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translateY(-1px)}
+  .row.done .fld{color:var(--muted);text-decoration:line-through}
+  .amt{display:flex;align-items:center;gap:4px;flex:0 0 auto;color:var(--ink);font-weight:700}
+  .amt .yen{color:var(--muted);font-weight:500}
+  .amt input{width:86px;text-align:right;background:transparent;border:none;outline:none;border-bottom:1.5px dashed transparent;
+    font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;border-radius:3px}
+  .amt input:hover{border-bottom-color:var(--line-strong)}
+  .amt input:focus{border-bottom-color:var(--coral);background:var(--surface-2)}
+  .info-row{flex-direction:column;gap:2px;align-items:stretch}
+  .info-row .lbl{font-family:"Zen Maru Gothic";font-weight:700;font-size:14px;color:var(--teal);display:flex;align-items:center;gap:8px}
+  .info-row .lbl .fld{color:var(--teal);font-weight:700}
+
+  .total{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+    margin-top:14px;padding:14px 16px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);
+  }
+  .total .big{font-family:"Zen Maru Gothic";font-weight:700;font-size:24px;color:var(--coral);font-variant-numeric:tabular-nums}
+  .total .per{font-size:13px;color:var(--muted)}
+
+  .icon-btn{
+    border:none;background:transparent;cursor:pointer;color:var(--muted);
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;transition:.15s;flex:0 0 auto;
+  }
+  .icon-btn:hover{background:var(--coral-soft);color:var(--coral)}
+  .icon-btn svg{width:15px;height:15px}
+  .icon-btn.armed{background:var(--coral);color:#fff;width:auto;padding:0 10px;font-size:12px;font-weight:700}
+  .move-btn{width:22px;height:18px;color:var(--muted)}
+  .move-btn:hover{background:var(--teal-soft);color:var(--teal)}
+
+  .add-btn{
+    margin-top:12px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    border:1.5px dashed var(--line-strong);background:transparent;color:var(--ink);
+    border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;transition:.15s;
+  }
+  .add-btn:hover{border-color:var(--coral);color:var(--coral);background:var(--coral-soft)}
+  .add-btn svg{width:15px;height:15px}
+  .add-day{width:100%;justify-content:center}
+
+  .empty-hint{color:var(--muted);font-size:14px;font-family:"Yomogi",cursive;padding:6px 2px}
+
+  .footer{text-align:center;color:var(--muted);font-size:12.5px;font-family:"Yomogi",cursive;padding:4px 0 10px}
+
+  /* banner + toast */
+  .banner{
+    margin:0 auto;max-width:820px;background:var(--coral-soft);color:var(--coral);
+    border:1px solid var(--coral);border-radius:12px;padding:10px 14px;font-size:13.5px;font-weight:700;
+    margin-top:14px;
+  }
+  .toast{
+    position:fixed;left:50%;transform:translateX(-50%);
+    bottom:calc(env(safe-area-inset-bottom,0px) + 20px);z-index:50;
+    background:var(--ink);color:var(--bg);padding:9px 18px;border-radius:999px;font-size:13px;font-weight:700;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:430px){
+    .ev-time{width:50px}.ev-time .time-in{width:50px}
+    .card-head{padding:15px 15px}.card-body{padding:14px 13px 18px}
+  }
+</style>
+
+<div id="app" aria-live="polite"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- state ---------------- */
+  var db=null, user=null;
+  var canWrite=true, dbReady=false, noDb=false, timedOut=false, bannerMsg="";
+  var state={ meta:null, days:[], events:[], packing:[], budget:[], info:[], memo:null };
+  var subs=[];
+
+  var DEFAULT_META={title:"",destination:"熱海",dateFrom:"",dateTo:"",members:"",heroNote:""};
+  function meta(){ var m=state.meta||{}; return {
+    title:m.title!=null?m.title:DEFAULT_META.title,
+    destination:m.destination!=null?m.destination:DEFAULT_META.destination,
+    dateFrom:m.dateFrom||"", dateTo:m.dateTo||"",
+    members:m.members!=null?m.members:"", heroNote:m.heroNote!=null?m.heroNote:""
+  };}
+
+  /* ---------------- helpers ---------------- */
+  function esc(s){ return String(s==null?"":s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+  function byOrder(a,b){ return (a.order||0)-(b.order||0); }
+  function nextOrder(list){ var m=0; list.forEach(function(x){ if((x.order||0)>m)m=x.order; }); return m+1; }
+
+  var ICON={
+    map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-6 2V6l6-2m0 16l6 2m-6-2V4m6 18l6-2V4l-6 2m0 14V6m0 0L9 4"/></svg>',
+    route:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6 16V9a4 4 0 0 1 4-4h4"/><path d="M18 8v3a4 4 0 0 1-4 4H9"/></svg>',
+    pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>',
+    bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>',
+    coin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5h.01"/></svg>',
+    pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>',
+    trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3m-7 0 1 13h6l1-13"/></svg>',
+    plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+    up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>',
+    down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+  };
+
+  function fmtDateRange(){
+    var m=meta(); if(!m.dateFrom&&!m.dateTo) return "";
+    function f(s){ if(!s) return ""; var d=new Date(s+"T00:00:00"); if(isNaN(d)) return s;
+      var w=["日","月","火","水","木","金","土"][d.getDay()];
+      return (d.getMonth()+1)+"/"+d.getDate()+"("+w+")"; }
+    if(m.dateFrom&&m.dateTo){ var r=f(m.dateFrom)+" 〜 "+f(m.dateTo);
+      var a=new Date(m.dateFrom), b=new Date(m.dateTo);
+      var n=Math.round((b-a)/86400000); if(n>=1) r+="  ・ "+n+"泊"+(n+1)+"日";
+      return r; }
+    return f(m.dateFrom||m.dateTo);
+  }
+
+  /* ---------------- render ---------------- */
+  var rafQueued=false;
+  function render(){ if(rafQueued) return; rafQueued=true;
+    requestAnimationFrame(function(){ rafQueued=false; doRender(); }); }
+
+  function captureFocus(){
+    var el=document.activeElement;
+    if(el&&el.dataset&&el.dataset.fid){
+      var o={fid:el.dataset.fid};
+      try{o.start=el.selectionStart;o.end=el.selectionEnd;}catch(e){}
+      return o;
+    } return null;
+  }
+  function restoreFocus(f){
+    if(!f) return;
+    var el=document.querySelector('[data-fid="'+(window.CSS&&CSS.escape?CSS.escape(f.fid):f.fid)+'"]');
+    if(el){ el.focus(); if(f.start!=null){ try{el.setSelectionRange(f.start,f.end);}catch(e){} } }
+  }
+
+  function fld(tag,attrs,val,ph){
+    var a=attrs||{}; var s="<"+tag+' class="fld"';
+    for(var k in a){ s+=" "+k+'="'+esc(a[k])+'"'; }
+    if(ph) s+=' placeholder="'+esc(ph)+'"';
+    if(tag==="textarea"){ s+=">"+esc(val)+"</textarea>"; }
+    else { s+=' value="'+esc(val)+'">'; }
+    return s;
+  }
+
+  function evCard(ev){
+    return '<div class="ev" data-id="'+esc(ev.id)+'">'+
+      '<div class="ev-time">'+
+        '<input class="time-in" data-fid="ev-'+esc(ev.id)+'-time" data-coll="events" data-id="'+esc(ev.id)+'" data-field="time" value="'+esc(ev.time)+'" placeholder="--:--">'+
+        '<span class="ev-dot"></span>'+
+      '</div>'+
+      '<div class="ev-body">'+
+        '<input class="fld ev-title" data-fid="ev-'+esc(ev.id)+'-title" data-coll="events" data-id="'+esc(ev.id)+'" data-field="title" value="'+esc(ev.title)+'" placeholder="予定を書く">'+
+        '<div class="ev-place">'+ICON.pin+'<input class="fld" data-fid="ev-'+esc(ev.id)+'-place" data-coll="events" data-id="'+esc(ev.id)+'" data-field="place" value="'+esc(ev.place)+'" placeholder="場所"></div>'+
+        '<input class="fld ev-memo" data-fid="ev-'+esc(ev.id)+'-memo" data-coll="events" data-id="'+esc(ev.id)+'" data-field="memo" value="'+esc(ev.memo)+'" placeholder="メモ">'+
+      '</div>'+
+      (canWrite?'<div class="ev-tools">'+
+        '<button class="icon-btn move-btn" data-act="move" data-coll="events" data-id="'+esc(ev.id)+'" data-dir="up" title="上へ">'+ICON.up+'</button>'+
+        '<button class="icon-btn move-btn" data-act="move" data-coll="events" data-id="'+esc(ev.id)+'" data-dir="down" title="下へ">'+ICON.down+'</button>'+
+        '<button class="icon-btn" data-act="del" data-coll="events" data-id="'+esc(ev.id)+'" title="削除">'+ICON.trash+'</button>'+
+      '</div>':'')+
+    '</div>';
+  }
+
+  function dayCard(day,idx){
+    var evs=state.events.filter(function(e){return e.dayId===day.id;}).sort(byOrder);
+    var h='<div class="day" data-id="'+esc(day.id)+'">'+
+      '<div class="day-head">'+
+        '<span class="day-badge">'+(idx+1)+'</span>'+
+        fld("input",{"data-fid":"day-"+day.id+"-title","data-coll":"days","data-id":day.id,"data-field":"title"},day.title,"例) 1日目 ・ 11/21(土)")+
+        (canWrite?'<button class="icon-btn move-btn" data-act="move" data-coll="days" data-id="'+esc(day.id)+'" data-dir="up" title="上へ">'+ICON.up+'</button>'+
+          '<button class="icon-btn move-btn" data-act="move" data-coll="days" data-id="'+esc(day.id)+'" data-dir="down" title="下へ">'+ICON.down+'</button>'+
+          '<button class="icon-btn" data-act="delday" data-id="'+esc(day.id)+'" title="この日を削除">'+ICON.trash+'</button>':'')+
+      '</div>'+
+      '<div class="events">';
+    if(evs.length) evs.forEach(function(e){ h+=evCard(e); });
+    else h+='<div class="empty-hint">まだ予定がありません</div>';
+    if(canWrite) h+='<button class="add-btn" data-act="addev" data-day="'+esc(day.id)+'">'+ICON.plus+'予定を追加</button>';
+    h+='</div></div>';
+    return h;
+  }
+
+  function listRow(coll,item,opts){
+    opts=opts||{};
+    var done=!!item.done;
+    var h='<div class="row '+(coll==="info"?"info-row ":"")+(done?"done":"")+'" data-id="'+esc(item.id)+'">';
+    if(coll==="packing"){
+      h+='<input type="checkbox" class="check" data-act="toggle" data-coll="packing" data-id="'+esc(item.id)+'"'+(done?" checked":"")+'>';
+      h+=fld("input",{"data-fid":"packing-"+item.id+"-text","data-coll":"packing","data-id":item.id,"data-field":"text"},item.text,"持ち物");
+    } else if(coll==="budget"){
+      h+=fld("input",{"data-fid":"budget-"+item.id+"-item","data-coll":"budget","data-id":item.id,"data-field":"item"},item.item,"項目");
+      h+='<span class="amt"><span class="yen">¥</span><input type="number" inputmode="numeric" data-fid="budget-'+esc(item.id)+'-amount" data-coll="budget" data-id="'+esc(item.id)+'" data-field="amount" value="'+esc(item.amount!=null?item.amount:"")+'" placeholder="0"></span>';
+    } else if(coll==="info"){
+      h+='<div class="lbl">'+ICON.pin+fld("input",{"data-fid":"info-"+item.id+"-label","data-coll":"info","data-id":item.id,"data-field":"label"},item.label,"見出し")+'</div>';
+      h+=fld("textarea",{"data-fid":"info-"+item.id+"-detail","data-coll":"info","data-id":item.id,"data-field":"detail",rows:"2"},item.detail,"詳細（住所・電話・時間など）");
+    }
+    if(canWrite) h+='<button class="icon-btn" data-act="del" data-coll="'+coll+'" data-id="'+esc(item.id)+'" title="削除">'+ICON.trash+'</button>';
+    h+='</div>';
+    return h;
+  }
+
+  function cardHead(icon,title,sub,teal){
+    return '<div class="card-head'+(teal?" teal":"")+'"><span class="ico">'+icon+'</span>'+
+      '<div><h2>'+title+'</h2><div class="sub">'+sub+'</div></div></div>';
+  }
+
+  function doRender(){
+    var f=captureFocus();
+    var m=meta();
+    var html="";
+
+    if(bannerMsg) html+='<div class="banner">'+esc(bannerMsg)+'</div>';
+
+    /* cover */
+    html+='<div class="hero"><div class="hero-sun"></div><div class="hero-inner">'+
+      '<p class="eyebrow">Travel Notebook ✈</p>'+
+      '<input class="title-input" data-fid="meta-title" data-meta="title" value="'+esc(m.title)+'" placeholder="タイトルを入力（例）熱海 ふたり旅">'+
+      '<div class="hero-meta">'+
+        '<div class="hm-block"><span class="hm-label">ゆくさき</span><span class="hm-value"><span class="pill">📍 <input data-fid="meta-destination" data-meta="destination" value="'+esc(m.destination)+'" placeholder="行き先" size="6"></span></span></div>'+
+        '<div class="hm-block"><span class="hm-label">日にち</span><span class="hm-value">'+
+          '<input type="date" class="date-field" data-fid="meta-dateFrom" data-meta="dateFrom" value="'+esc(m.dateFrom)+'">'+
+          '<input type="date" class="date-field" data-fid="meta-dateTo" data-meta="dateTo" value="'+esc(m.dateTo)+'">'+
+        '</span>'+(fmtDateRange()?'<span class="nights">'+esc(fmtDateRange())+'</span>':'')+'</div>'+
+        '<div class="hm-block"><span class="hm-label">メンバー</span><span class="hm-value"><span class="pill">👫 <input data-fid="meta-members" data-meta="members" value="'+esc(m.members)+'" placeholder="ふたり" size="8"></span></span></div>'+
+      '</div>'+
+      '<textarea class="hero-note" rows="2" data-fid="meta-heroNote" data-meta="heroNote" placeholder="ひとことメモ（楽しみだね！など）">'+esc(m.heroNote)+'</textarea>'+
+    '</div>'+
+    '<svg class="wave" viewBox="0 0 1440 46" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,24 C180,46 360,46 540,30 C720,14 900,2 1080,10 C1260,18 1350,34 1440,30 L1440,46 L0,46 Z" fill="'+getBg()+'"/></svg>'+
+    '</div>';
+
+    /* nav */
+    html+='<nav class="nav"><div class="nav-inner">'+
+      '<button data-scroll="sec-itin">🗓 行程</button>'+
+      '<button data-scroll="sec-pack">🎒 持ち物</button>'+
+      '<button data-scroll="sec-budget">💰 予算</button>'+
+      '<button data-scroll="sec-info">📖 お役立ち</button>'+
+      '<button data-scroll="sec-memo">✎ メモ</button>'+
+    '</div></nav>';
+
+    html+='<main class="page">';
+
+    if(timedOut&&!dbReady) html+='<div class="banner">データに接続中です… しばらくお待ちください。</div>';
+
+    /* itinerary */
+    html+='<section class="card" id="sec-itin">'+cardHead(ICON.route,"行程表","day by day",true)+'<div class="card-body">';
+    var days=state.days.slice().sort(byOrder);
+    if(days.length) days.forEach(function(d,i){ html+=dayCard(d,i); });
+    else html+='<div class="empty-hint">「日を追加」から1日目を作りましょう。</div>';
+    if(canWrite) html+='<button class="add-btn add-day" data-act="addday">'+ICON.plus+'日を追加</button>';
+    html+='</div></section>';
+
+    /* packing */
+    html+='<section class="card" id="sec-pack">'+cardHead(ICON.bag,"持ち物リスト","don\'t forget!")+'<div class="card-body">';
+    var pk=state.packing.slice().sort(byOrder);
+    if(pk.length) pk.forEach(function(x){ html+=listRow("packing",x); });
+    else html+='<div class="empty-hint">持ち物をどんどん足していこう。</div>';
+    if(canWrite) html+='<button class="add-btn" data-act="add" data-coll="packing">'+ICON.plus+'持ち物を追加</button>';
+    html+='</div></section>';
+
+    /* budget */
+    html+='<section class="card" id="sec-budget">'+cardHead(ICON.coin,"予算メモ","budget",true)+'<div class="card-body">';
+    var bg=state.budget.slice().sort(byOrder), total=0;
+    bg.forEach(function(x){ total+=Number(x.amount)||0; });
+    if(bg.length) bg.forEach(function(x){ html+=listRow("budget",x); });
+    else html+='<div class="empty-hint">交通費・宿・食事などを書き出そう。</div>';
+    if(canWrite) html+='<button class="add-btn" data-act="add" data-coll="budget">'+ICON.plus+'項目を追加</button>';
+    html+='<div class="total"><div><div class="per">合計</div><div class="big">¥'+total.toLocaleString("ja-JP")+'</div></div>'+
+      '<div class="per">ふたりで割ると<br><b style="color:var(--teal);font-size:16px">¥'+Math.round(total/2).toLocaleString("ja-JP")+'</b> / 人</div></div>';
+    html+='</div></section>';
+
+    /* info */
+    html+='<section class="card" id="sec-info">'+cardHead(ICON.info,"お役立ち情報","good to know")+'<div class="card-body">';
+    var inf=state.info.slice().sort(byOrder);
+    if(inf.length) inf.forEach(function(x){ html+=listRow("info",x); });
+    else html+='<div class="empty-hint">宿・交通・緊急連絡先などをメモ。</div>';
+    if(canWrite) html+='<button class="add-btn" data-act="add" data-coll="info">'+ICON.plus+'情報を追加</button>';
+    html+='</div></section>';
+
+    /* free memo */
+    var memoText=(state.memo&&state.memo.text!=null)?state.memo.text:"";
+    html+='<section class="card" id="sec-memo">'+cardHead(ICON.pen,"自由メモ","anything goes",true)+'<div class="card-body">'+
+      '<textarea class="fld" rows="6" data-fid="memo-text" data-memo="1" placeholder="行きたいお店、やりたいこと、思い出など自由に書いてね ✎">'+esc(memoText)+'</textarea>'+
+    '</div></section>';
+
+    html+='<div class="footer">このしおりは開いた人みんなで書き込めます ・ 自動保存</div>';
+    html+='</main>';
+
+    document.getElementById("app").innerHTML=html;
+    restoreFocus(f);
+  }
+
+  function getBg(){
+    try{ return getComputedStyle(document.body).getPropertyValue("--bg").trim()||"#FBF4E9"; }
+    catch(e){ return "#FBF4E9"; }
+  }
+
+  /* ---------------- toast / banner ---------------- */
+  var toastT=null;
+  function flashSaved(){
+    var t=document.getElementById("toast"); if(!t) return;
+    t.textContent="保存しました ✓"; t.classList.add("show");
+    clearTimeout(toastT); toastT=setTimeout(function(){ t.classList.remove("show"); },1100);
+  }
+  function setBanner(msg){ bannerMsg=msg; render(); }
+
+  /* ---------------- writes ---------------- */
+  function guard(p){
+    return p.then(function(r){ flashSaved(); return r; }).catch(function(e){
+      var code=e&&e.code;
+      if(code==="invalid_argument"||code==="transform_error"){ canWrite=false; setBanner("編集権限がありません（閲覧のみ）。"); }
+      else if(code==="quota_exceeded"){ setBanner("保存容量がいっぱいです。不要な項目を減らしてください。"); }
+      else if(code==="not_granted"||code==="revoked"||code==="capability_disabled"){ /* ignore */ }
+      /* unavailable: silently drop; next edit retries */
+    });
+  }
+  function writeMeta(field,value){
+    if(!db) return;
+    var cur=state.meta?Object.assign({},state.meta):Object.assign({},DEFAULT_META);
+    cur[field]=value; state.meta=cur;
+    guard(db.doc("meta/trip").set(cur));
+  }
+  function writeField(coll,id,field,value){
+    if(!db) return;
+    var o={}; o[field]=value;
+    var arr=state[coll]; for(var i=0;i<arr.length;i++){ if(arr[i].id===id){ arr[i][field]=value; break; } }
+    guard(db.collection(coll).doc(id).update(o));
+  }
+  function addItem(coll,extra){
+    if(!db) return;
+    var base={order:nextOrder(state[coll])};
+    if(extra) for(var k in extra) base[k]=extra[k];
+    guard(db.collection(coll).add(base));
+  }
+  function delItem(coll,id){ if(!db) return; guard(db.collection(coll).doc(id).delete()); }
+  function delDay(id){
+    if(!db) return;
+    state.events.filter(function(e){return e.dayId===id;}).forEach(function(e){ db.collection("events").doc(e.id).delete(); });
+    guard(db.collection("days").doc(id).delete());
+  }
+  function writeMemo(text){
+    if(!db) return; state.memo={text:text};
+    guard(db.doc("notes/freememo").set({text:text}));
+  }
+  function moveItem(coll,id,dir){
+    if(!db) return;
+    var list;
+    if(coll==="events"){
+      var ev=null; state.events.forEach(function(e){ if(e.id===id) ev=e; });
+      if(!ev) return;
+      list=state.events.filter(function(e){return e.dayId===ev.dayId;}).sort(byOrder);
+    } else list=state[coll].slice().sort(byOrder);
+    var idx=-1; for(var i=0;i<list.length;i++){ if(list[i].id===id){ idx=i; break; } }
+    var j=dir==="up"?idx-1:idx+1;
+    if(idx<0||j<0||j>=list.length) return;
+    var a=list[idx], b=list[j];
+    var ao=a.order||0, bo=b.order||0;
+    a.order=bo; b.order=ao;
+    guard(db.collection(coll).doc(a.id).update({order:bo}));
+    db.collection(coll).doc(b.id).update({order:ao}).catch(function(){});
+    render();
+  }
+
+  /* ---------------- events ---------------- */
+  document.addEventListener("change",function(e){
+    var el=e.target; if(!el.dataset) return;
+    if(el.dataset.act==="toggle"){ writeField("packing",el.dataset.id,"done",el.checked); return; }
+    if(el.dataset.meta){ writeMeta(el.dataset.meta,el.value); if(el.dataset.meta==="dateFrom"||el.dataset.meta==="dateTo") render(); return; }
+    if(el.dataset.memo){ writeMemo(el.value); return; }
+    if(el.dataset.coll&&el.dataset.id&&el.dataset.field){
+      var v=el.value;
+      if(el.dataset.field==="amount") v=el.value===""?0:(Number(el.value)||0);
+      writeField(el.dataset.coll,el.dataset.id,el.dataset.field,v);
+    }
+  });
+
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("[data-act],[data-scroll]");
+    if(!b) return;
+    if(b.dataset.scroll){ var t=document.getElementById(b.dataset.scroll); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+    var act=b.dataset.act;
+    if(act==="addday"){ addItem("days",{title:""}); }
+    else if(act==="addev"){ addItem("events",{dayId:b.dataset.day,time:"",title:"",place:"",memo:""}); }
+    else if(act==="add"){
+      var c=b.dataset.coll;
+      if(c==="packing") addItem("packing",{text:"",done:false});
+      else if(c==="budget") addItem("budget",{item:"",amount:0});
+      else if(c==="info") addItem("info",{label:"",detail:""});
+    }
+    else if(act==="move"){ moveItem(b.dataset.coll,b.dataset.id,b.dataset.dir); }
+    else if(act==="del"||act==="delday"){
+      // two-click confirm
+      if(b.classList.contains("armed")){
+        if(act==="delday") delDay(b.dataset.id); else delItem(b.dataset.coll,b.dataset.id);
+      } else {
+        b.classList.add("armed"); b.textContent="削除";
+        setTimeout(function(){ if(b&&b.classList){ b.classList.remove("armed"); b.innerHTML=ICON.trash; } },2600);
+      }
+    }
+  });
+
+  /* ---------------- db wiring ---------------- */
+  function sub(ref,assign){
+    var u=ref.onSnapshot(function(snap){
+      dbReady=true;
+      if(snap.docs){ // collection
+        var arr=snap.docs.map(function(d){ var o=d.data()||{}; o.id=d.id; return o; });
+        assign(arr);
+      } else { // doc
+        assign(snap.exists?snap.data():null);
+      }
+      render();
+    },function(err){ /* terminal */ });
+    subs.push(u);
+  }
+
+  function subscribeAll(){
+    sub(db.doc("meta/trip"),function(v){ state.meta=v; });
+    sub(db.doc("notes/freememo"),function(v){ state.memo=v; });
+    ["days","events","packing","budget","info"].forEach(function(c){
+      sub(db.collection(c).orderBy("order"),function(v){ state[c]=v; });
+    });
+    setTimeout(function(){ if(!dbReady){ timedOut=true; render(); } },10000);
+  }
+
+  render(); // first paint immediately
+
+  if(window.claude&&window.claude.use){
+    window.claude.use("user").then(function(u){
+      user=u;
+      if(u){ try{ var w=u.can&&u.can("data.write"); if(w===false){ canWrite=false; } }catch(e){} }
+      render();
+    }).catch(function(){});
+
+    window.claude.use("db").then(function(d){
+      if(!d){ noDb=true; setBanner("このしおりを編集・保存するには claude.ai にサインインしてください。"); return; }
+      db=d; subscribeAll();
+    }).catch(function(){ noDb=true; });
+  } else {
+    setBanner("このしおりを編集・保存するには claude.ai で開いてください。");
+  }
+})();
+</script>
